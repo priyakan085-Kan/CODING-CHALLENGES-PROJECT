@@ -1,0 +1,75 @@
+2. Power Query (Data Cleaning)
+In Power Query Editor:
+Check data types:
+Start_Time → Date/Time
+End_Time → Date/Time
+Duration_Min → Whole Number
+Distance_KM → Decimal
+Remove nulls if any
+Add Column → Hour
+Copy code
+Powerquery
+Hour = Date.Hour([Start_Time])
+Close & Apply ✔
+🔹 3. Data Model (Fact & Dimension)
+Fact Table: Bike_Riding_Data
+Create Dimensions:
+Date_Dim (from Start_Time)
+Station_Dim
+City_Dim
+Rider_Dim
+Relationships:
+Date_Dim[Date] → Fact[Start_Date]
+Station_Dim[Station_Name] → Fact[Station_Name]
+City_Dim[City] → Fact[City]
+📌 Star schema = Interview PLUS point ⭐
+🔹 4. Important DAX Measures (COPY–PASTE)
+🔢 Total Rides
+Copy code
+DAX
+Total Rides = COUNT(Bike_Riding_Data[Ride_ID])
+⏱ Average Duration
+Copy code
+DAX
+Avg Duration (Min) = AVERAGE(Bike_Riding_Data[Duration_Min])
+📏 Total Distance
+Copy code
+DAX
+Total Distance (KM) = SUM(Bike_Riding_Data[Distance_KM])
+🕒 Peak Hour Rides
+Copy code
+DAX
+Peak Hour Rides =
+CALCULATE(
+    COUNT(Bike_Riding_Data[Ride_ID]),
+    Bike_Riding_Data[Hour] IN {8,9,18,19}
+)
+🔹 5. Dashboard Visuals (EXACT SETUP)
+🎯 KPI Cards (Top)
+Total Rides
+Avg Duration
+Total Distance
+📊 Bar Chart – Station Wise Rides
+Axis → Station_Name
+Values → Total Rides
+📈 Line Chart – Hourly Trend
+X → Hour
+Y → Total Rides
+🧩 Pie Chart – Rider Type
+Legend → Rider_Type
+Values → Total Rides
+🗺 Map – City Wise Rides
+Location → City
+Size → Total Rides
+🔹 6. Slicers (VERY IMPORTANT)
+Add slicers for:
+City
+Station
+Rider_Type
+Date
+📌 Shows interactivity → interviewer loves this
+🔹 7. Key Insights (Use in Report)
+Morning & evening are peak hours
+IT Park & Metro stations highest demand
+Member riders dominate usage
+Distance varies significantly by city
